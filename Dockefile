@@ -1,0 +1,26 @@
+FROM python:3.12-slim
+
+# Create the virtual environment named eraneos_venv
+RUN python3.12 -m venv /stockflow_venv
+# Ensure the virtual environment is used
+ENV PATH="/stockflow_venv/bin:$PATH"
+
+# Install Poetry inside the virtual environment
+RUN pip install poetry
+
+WORKDIR /app
+
+# Copy project dependency files
+COPY pyproject.toml poetry.lock /app/
+
+# Configure Poetry to install packages directly into the current venv and install dependencies
+RUN poetry config virtualenvs.create false && poetry install --no-root --only main
+
+# Copy the application source code
+COPY ./src/ /app/src/
+
+# Set PYTHONPATH to include the src folder for module resolution
+ENV PYTHONPATH="${PYTHONPATH}:/app/src"
+
+# Run the app using uvicorn from the activated virtual environment
+ENTRYPOINT ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8080"]
