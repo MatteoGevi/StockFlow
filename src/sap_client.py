@@ -1,12 +1,14 @@
 from typing import Dict, List, Optional
 import os
+from constants import SAP_SYSNR, SAP_CLIENT, SAP_ASHOST, SAP_USER, SAP_PASSWORD
 from pyrfc import Connection
 from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
-SAP_SYSNR=00
-SAP_CLIENT=100
+# SAP connection constants - these could also be moved to .env if they vary by environment
+SAP_SYSNR = "00"
+SAP_CLIENT = "100"
 
 class SAPClient:
     def __init__(self):
@@ -16,12 +18,16 @@ class SAPClient:
     def _connect(self) -> None:
         """Establish connection to SAP system using credentials from environment variables."""
         try:
+            # All sensitive connection parameters should be in .env
+            if not all([os.getenv('SAP_ASHOST'), os.getenv('SAP_USER'), os.getenv('SAP_PASSWORD')]):
+                raise ValueError("Missing required SAP credentials in .env file")
+                
             self.conn = Connection(
-                ashost=os.getenv('SAP_ASHOST'),
-                sysnr=os.getenv('SAP_SYSNR'),
-                client=os.getenv('SAP_CLIENT'),
-                user=os.getenv('SAP_USER'),
-                passwd=os.getenv('SAP_PASSWORD')
+                ashost=SAP_ASHOST,
+                sysnr=SAP_SYSNR,
+                client=SAP_CLIENT, 
+                user=SAP_USER,
+                passwd=SAP_PASSWORD
             )
         except Exception as e:
             raise ConnectionError(f"Failed to connect to SAP: {str(e)}")

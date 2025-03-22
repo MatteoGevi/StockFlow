@@ -6,12 +6,19 @@ authors = [
     {name = "Matteo Gevi",email = "matteogevi97@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.11,<3.12"
 dependencies = [
-    "pyrfc>=2.8.0",
-    "python-dotenv>=1.0.0"
+    "python-dotenv>=1.0.0",
+    "mpc (>=0.0.6,<0.0.7)",
+    "langchain (>=0.3.21,<0.4.0)",
+    "dotenv (>=0.9.9,<0.10.0)",
+    "pyrfc>=2.8.0"
 ]
 
+[tool.poetry]
+packages = [
+    { include = "src" }
+]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
