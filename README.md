@@ -7,7 +7,7 @@ AI-driven supply chain optimization system designed to predict demand, optimize 
 
 ## ERP System Connection
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/SAP_2011_logo.svg/2560px-SAP_2011_logo.svg.png" alt="SAP Logo" width="100" height="50">
+[![SAP ERP](https://img.shields.io/badge/ERP-SAP-0FAAFF?style=flat&logo=sap&logoColor=white)](https://www.sap.com/)
 
 Such a repo is intended to work on SAP and Oracle Netsuit. Although, they are quite demanding in terms of hosting since they need a cloud setup.
 Hence, we will use a easier set up so you can install everything locally and just do some minor change inside the **client.py** to change the kind of ERP systme you want to connect to.
